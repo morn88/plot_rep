@@ -29,11 +29,21 @@ class Window(QtGui.QMainWindow):
         btn.resize(btn.minimumSizeHint())
         btn.move(100, 100)
         btn.setStatusTip('My Button')
+
+        extractAction = QtGui.QAction(QtGui.QIcon("information.png"), 'Flee the Scene', self)
+        extractAction.triggered.connect(self.close_application)
+        self.toolBar = self.addToolBar("Extraction")
+        self.toolBar.addAction(extractAction)
         self.show()
 
     def close_application(self):
-        print('whooaaaaaa so castom!!!')
-        sys.exit()
+        choice = QtGui.QMessageBox.question(self, 'Extract!', 'Get into the chopper?',
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        if choice == QtGui.QMessageBox.Yes:
+            print("Extracting Naaaaaaaaaaaaooooooooowwww!!!!")
+            sys.exit()
+        else:
+            pass
 
 
 def run():
