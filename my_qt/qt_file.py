@@ -30,7 +30,7 @@ class Window(QtGui.QMainWindow):
         btn.move(100, 100)
         btn.setStatusTip('My Button')
 
-        extractAction = QtGui.QAction(QtGui.QIcon("information.png"), 'Flee the Scene', self)
+        extractAction = QtGui.QAction(QtGui.QIcon("shout.png"), 'Flee the Scene', self)
         extractAction.triggered.connect(self.close_application)
         self.toolBar = self.addToolBar("Extraction")
         self.toolBar.addAction(extractAction)
