@@ -19,11 +19,18 @@ class Window(QtGui.QMainWindow):
         openEditor.setStatusTip('Open Editor')
         openEditor.triggered.connect(self.editor);
 
+        openFile = QtGui.QAction("&Open", self)
+        openFile.setShortcut('Ctrl+O')
+        openFile.setStatusTip('Open File')
+        openFile.triggered.connect(self.file_open)
+
         self.statusBar()
 
         mainMenu = self.menuBar()
+
         fileMenu = mainMenu.addMenu('&File')
         fileMenu.addAction(extractAction)
+        fileMenu.addAction(openFile)
 
         self.setStatusTip('My Window')
 
@@ -88,6 +95,15 @@ class Window(QtGui.QMainWindow):
         cal.resize(200, 200)
 
         self.show()
+
+    def file_open(self):
+        name = QtGui.QFileDialog.getOpenFileName(self, 'Open file')
+        file = open(name, 'r')
+
+        self.editor()
+        with file:
+            text = file.read()
+            self.textEdit.setText(text)
 
     def color_picker(self):
         color = QtGui.QColorDialog.getColor()
