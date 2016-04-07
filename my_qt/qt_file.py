@@ -14,12 +14,21 @@ class Window(QtGui.QMainWindow):
         extractAction.setStatusTip('Leave The App')
         extractAction.triggered.connect(self.close_application)
 
+        openEditor = QtGui.QAction("&Editor", self)
+        openEditor.setShortcut('Ctrl+E')
+        openEditor.setStatusTip('Open Editor')
+        openEditor.triggered.connect(self.editor);
+
         self.statusBar()
 
         mainMenu = self.menuBar()
         fileMenu = mainMenu.addMenu('&File')
         fileMenu.addAction(extractAction)
+
         self.setStatusTip('My Window')
+
+        editorMenu = mainMenu.addMenu('&Editor')
+        editorMenu.addAction(openEditor)
 
         self.home()
 
@@ -84,6 +93,11 @@ class Window(QtGui.QMainWindow):
         color = QtGui.QColorDialog.getColor()
         self.styleChoice.setStyleSheet('QWidget { background-color: %s}' % color.name())
         self.btn.setStyleSheet('QWidget { background-color: %s}' % color.name())
+
+    def editor(self):
+        self.textEdit = QtGui.QTextEdit()
+        self.setCentralWidget(self.textEdit)
+
     def font_choice(self):
         font, valid = QtGui.QFontDialog.getFont()
         if valid:
