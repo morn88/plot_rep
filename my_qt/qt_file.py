@@ -34,7 +34,18 @@ class Window(QtGui.QMainWindow):
         extractAction.triggered.connect(self.close_application)
         self.toolBar = self.addToolBar("Extraction")
         self.toolBar.addAction(extractAction)
+
+        checkBox = QtGui.QCheckBox('Enlarge Window', self)
+        checkBox.stateChanged.connect(self.enlargeWindow)
+
+
         self.show()
+
+    def enlargeWindow(self, state):
+        if state == QtCore.Qt.Checked:
+            self.setGeometry(50, 50, 1000, 600)
+        else:
+            self.setGeometry(50, 50, 500, 300)
 
     def close_application(self):
         choice = QtGui.QMessageBox.question(self, 'Extract!', 'Get into the chopper?',
