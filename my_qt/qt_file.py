@@ -32,14 +32,30 @@ class Window(QtGui.QMainWindow):
 
         extractAction = QtGui.QAction(QtGui.QIcon("shout.png"), 'Flee the Scene', self)
         extractAction.triggered.connect(self.close_application)
+
         self.toolBar = self.addToolBar("Extraction")
         self.toolBar.addAction(extractAction)
 
         checkBox = QtGui.QCheckBox('Enlarge Window', self)
+        checkBox.move(100, 25)
         checkBox.stateChanged.connect(self.enlargeWindow)
 
+        self.progress = QtGui.QProgressBar(self)
+        self.progress.setGeometry(200, 80, 250, 20)
+
+        self.btn = QtGui.QPushButton("Download", self)
+        self.btn.move(200, 120)
+        self.btn.clicked.connect(self.download)
 
         self.show()
+
+    def download(self):
+        self.complited = 0
+        self.btn.setDisabled(True)
+        while self.complited < 100:
+            self.complited += 0.00001
+            self.progress.setValue(self.complited)
+        self.btn.setDisabled(False)
 
     def enlargeWindow(self, state):
         if state == QtCore.Qt.Checked:
