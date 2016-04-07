@@ -32,12 +32,24 @@ class Window(QtGui.QMainWindow):
 
         extractAction = QtGui.QAction(QtGui.QIcon("shout.png"), 'Flee the Scene', self)
         extractAction.triggered.connect(self.close_application)
-
         self.toolBar = self.addToolBar("Extraction")
         self.toolBar.addAction(extractAction)
 
+        fontChoice = QtGui.QAction('Font', self)
+        fontChoice.triggered.connect(self.font_choice)
+        # self.toolBar = self.addToolBar("Font")
+        self.toolBar.addAction(fontChoice)
+
+        color = QtGui.QColor(0, 0, 0)
+
+        fontColor = QtGui.QAction('Font bg Color', self)
+        fontColor.triggered.connect(self.color_picker)
+
+        self.toolBar.addAction(fontColor)
+
+
         checkBox = QtGui.QCheckBox('Enlarge Window', self)
-        checkBox.move(100, 25)
+        checkBox.move(300, 25)
         checkBox.stateChanged.connect(self.enlargeWindow)
 
         self.progress = QtGui.QProgressBar(self)
@@ -62,7 +74,20 @@ class Window(QtGui.QMainWindow):
         self.styleChoice.move(50, 150)
         comboBox.activated[str].connect(self.style_choice)
 
+        cal = QtGui.QCalendarWidget(self)
+        cal.move(500, 200)
+        cal.resize(200, 200)
+
         self.show()
+
+    def color_picker(self):
+        color = QtGui.QColorDialog.getColor()
+        self.styleChoice.setStyleSheet('QWidget { background-color: %s}' % color.name())
+        self.btn.setStyleSheet('QWidget { background-color: %s}' % color.name())
+    def font_choice(self):
+        font, valid = QtGui.QFontDialog.getFont()
+        if valid:
+            self.styleChoice.setFont(font)
 
     def style_choice(self, text):
         self.styleChoice.setText(text)
