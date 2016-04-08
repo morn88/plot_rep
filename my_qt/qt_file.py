@@ -24,6 +24,11 @@ class Window(QtGui.QMainWindow):
         openFile.setStatusTip('Open File')
         openFile.triggered.connect(self.file_open)
 
+        saveFile = QtGui.QAction("&Save", self)
+        saveFile.setShortcut('Ctrl+S')
+        saveFile.setStatusTip('Save File')
+        saveFile.triggered.connect(self.file_save)
+
         self.statusBar()
 
         mainMenu = self.menuBar()
@@ -31,6 +36,7 @@ class Window(QtGui.QMainWindow):
         fileMenu = mainMenu.addMenu('&File')
         fileMenu.addAction(extractAction)
         fileMenu.addAction(openFile)
+        fileMenu.addAction(saveFile)
 
         self.setStatusTip('My Window')
 
@@ -104,6 +110,13 @@ class Window(QtGui.QMainWindow):
         with file:
             text = file.read()
             self.textEdit.setText(text)
+
+    def file_save(self):
+        name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
+        file = open(name, 'w')
+        text = self.textEdit.toPlainText()
+        file.write(text)
+        file.close()
 
     def color_picker(self):
         color = QtGui.QColorDialog.getColor()
