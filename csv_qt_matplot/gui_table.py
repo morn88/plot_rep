@@ -16,16 +16,18 @@ class PrettyWidget(QtGui.QWidget):
         self.setLayout(grid)
 
         # Data
-        data = {'Kitty':['1', '2', '3', '3'],
+        data = {'Kitty': ['1', '2', '3', '3'],
                 'Cat': ['4', '5', '6', '2'],
                 'Meow': ['7', '8', '9', '5'],
                 'Purr': ['4', '3', '4', '8'],
+                'Furr': ['5', '5', '4', '4'],
+                'Curr': ['6', '6', '6', '6'],
                 }
 
         # Create Empty 5x5 Table
         table = QtGui.QTableWidget(self)
-        table.setRowCount(5)
-        table.setColumnCount(5)
+        table.setRowCount(4)
+        table.setColumnCount(len(data.keys()))
 
         # Enter data onto Table
         horHeaders = []
